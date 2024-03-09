@@ -108,11 +108,58 @@ vagrant destroy
 
 ### bootstrap.sh
 
+```sh
+#!/usr/bin/env bash
 
+# The output of all these installation steps is noisy. With this utility
+# the progress report is nice and concise.
+
+echo "Update /etc/hosts"
+cat > /etc/hosts <<EOF
+127.0.0.1       localhost
+
+192.168.56.181 test1
+192.168.56.182 test2
+EOF
+
+echo "Disable iptables"
+setenforce 0 >/dev/null 2>&1 && iptables -F
+
+### Set env ###
+echo "export LC_ALL=en_US.UTF-8"  >>  /etc/profile
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+```
 
 ### Vagrantfile
 
+```bash
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
 
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  (1..2).each do |i|
+    config.vm.define vm_name = "test#{i}"  do |config|
+        config.vm.provider "virtualbox" do |v|
+            v.customize ["modifyvm", :id, "--name", vm_name]
+	    v.customize ["modifyvm", :id, "--memory", "8192"]
+            v.customize ["modifyvm", :id, "--cpus", "2"]
+        end
+        config.vm.box = "centos"
+        config.vm.hostname =vm_name
+        config.ssh.username = "root"
+        config.ssh.password = "vagrant"
+							#		config.ssh.shell = "powershell"
+							#config.ssh.shell = "bash -l"
+        config.vm.network :private_network, ip: "192.168.56.18#{i}"
+	config.vm.provision :shell, :path => "bootstrap.sh"
+    end
+  end
+end
+```
 
 ## 使用流程
 
