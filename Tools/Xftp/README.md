@@ -41,3 +41,5 @@ Xftp是一款功能强大的Windows环境下的FTP客户端软件，用于在本
 拖拽上传：
 
 ![image.png](https://cdn.jsdelivr.net/gh/letengzz/tc2/img202405191445352.webp)
+
+**注意**：当文件名出现乱码时，可通过 "文件-当前会话属性-选项-编码"改为UTF-8 来解决。
