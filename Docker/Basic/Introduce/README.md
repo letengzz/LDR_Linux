@@ -10,13 +10,7 @@ Docker 官网：https://www.docker.com
 
 Docker 中文库：https://www.docker.org.cn/
 
-![](assets/b0abb382c0ddfc474f31c28378a48743607c7cb9eb524a82c4b55a7559809d40.png)
-
-
-
-
-
-
+![](https://cdn.jsdelivr.net/gh/letengzz/tc2/img202406071302358.png)
 
 ## Docker 应用场景
 
@@ -142,3 +136,5 @@ Docker 容器通过 Docker 镜像来创建。
 1. 启动Docker
 2. 下载镜像到本地
 3. 启动Docker容器实例
+
+![image-20240615141451958](https://cdn.jsdelivr.net/gh/letengzz/tc2/img202406151414719.png)

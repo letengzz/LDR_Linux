@@ -1,17 +1,34 @@
 # Linux 安装 Docker
 
+## 检查环境
+
+Docker 要求 CentOS 系统的内核版本高于 3.10
+
+查看当前的内核版本：
+
+```sh
+uname -r
+```
+
 ## 使用yum安装
 
-1. 确保 yum 包更新到最新：
+1. 卸载旧版本：
+
+   ```sh
+   sudo yum remove docker \
+                     docker-client \
+                     docker-client-latest \
+                     docker-common \
+                     docker-latest \
+                     docker-latest-logrotate \
+                     docker-logrotate \
+                     docker-engine
+   ```
+
+2. 确保 yum 包更新到最新：
 
    ```sh
    sudo yum update
-   ```
-
-2. 卸载旧版本：
-
-   ```sh
-   sudo yum remove docker docker-common docker-selinux docker-engine
    ```
 
 3. 安装所需的软件包：
@@ -24,6 +41,14 @@
 
    ```sh
    sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+   ```
+
+   阿里源：
+
+   ```shell
+   sudo yum-config-manager \
+   --add-repo \
+   http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
    ```
 
 5. 查看所有仓库中所有docker版本，并选择特定版本安装：
@@ -53,7 +78,7 @@
      ```
 
      ```sh
-     sudo yum install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+     sudo yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
      ```
 
 7. 启动并加入开机启动：
@@ -61,6 +86,12 @@
    ```sh
    sudo systemctl start docker
    sudo systemctl enable docker
+   ```
+
+   也可以使用：启动& 开机启动docker； enable + start 二合一
+
+   ```shell
+   systemctl enable docker --now
    ```
 
 8. 验证安装是否成功(有client和service两部分表示docker安装启动都成功)：
@@ -158,7 +189,13 @@
    sudo systemctl enable docker
    ```
 
-5. 验证安装是否成功(有client和service两部分表示docker安装启动都成功)：
+5. 也可以使用：启动& 开机启动docker； enable + start 二合一
+
+   ```shell
+   systemctl enable docker --now
+   ```
+
+6. 验证安装是否成功(有client和service两部分表示docker安装启动都成功)：
 
    ```sh
    docker version
@@ -201,7 +238,7 @@ sudo systemctl restart docker
 
 ![image-20240401224659949](https://cdn.jsdelivr.net/gh/letengzz/tc2/img202404012257197.png)
 
-查看是否新增了阿里云的地址：
+查看是否新增了网易云的地址：
 
 ```sh
 docker info
